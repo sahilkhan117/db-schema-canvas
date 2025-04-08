@@ -5,7 +5,9 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import EditorView from "./pages/EditorView";
+import HomePage from "./pages/HomePage";
+import CanvasPage from "./pages/CanvasPage";
+import ProjectPage from "./pages/ProjectPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -17,7 +19,9 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<EditorView />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/canvas" element={<CanvasPage />} />
+          <Route path="/canvas/:projectName" element={<ProjectPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
