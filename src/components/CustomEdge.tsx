@@ -1,10 +1,6 @@
 
-import { useCallback } from 'react';
-import { BaseEdge, EdgeLabelRenderer, EdgeProps, getBezierPath, useReactFlow } from '@xyflow/react';
-
-interface CustomEdgeData {
-  label?: string;
-}
+import { memo } from 'react';
+import { getBezierPath, EdgeText } from '@xyflow/react';
 
 const CustomEdge = ({
   id,
@@ -14,11 +10,10 @@ const CustomEdge = ({
   targetY,
   sourcePosition,
   targetPosition,
+  data,
   style = {},
   markerEnd,
-  data
-}: EdgeProps & { data?: CustomEdgeData }) => {
-  const { setEdges } = useReactFlow();
+}) => {
   const [edgePath, labelX, labelY] = getBezierPath({
     sourceX,
     sourceY,
@@ -28,40 +23,31 @@ const CustomEdge = ({
     targetPosition,
   });
 
-  const onEdgeClick = useCallback(() => {
-    setEdges((edges) => edges.filter((edge) => edge.id !== id));
-  }, [id, setEdges]);
-
   return (
     <>
-      <BaseEdge path={edgePath} markerEnd={markerEnd} style={{ ...style, stroke: '#4f92ff' }} />
-      <EdgeLabelRenderer>
-        <div
-          style={{
-            position: 'absolute',
-            transform: `translate(-50%, -50%) translate(${labelX}px,${labelY}px)`,
-            fontSize: 12,
-            color: '#888',
-            pointerEvents: 'all'
-          }}
-          className="nodrag nopan"
-        >
-          {data?.label && (
-            <div style={{ 
-              background: 'rgba(0,0,0,0.7)', 
-              padding: '2px 4px',
-              borderRadius: '4px'
-            }}>
-              {data.label}
-            </div>
-          )}
-          <button className="edgebutton" onClick={onEdgeClick}>
-            ×
-          </button>
-        </div>
-      </EdgeLabelRenderer>
+      <path
+        id={id}
+        style={{
+          ...style,
+          strokeWidth: 2,
+        }}
+        className="react-flow__edge-path"
+        d={edgePath}
+        markerEnd={markerEnd}
+      />
+      {data?.label && (
+        <EdgeText
+          x={labelX}
+          y={labelY}
+          label={data.label}
+          labelStyle={{ fill: 'white', fontSize: 12, fontWeight: 500 }}
+          labelBgStyle={{ fill: 'rgba(0, 0, 0, 0.7)' }}
+          labelBgPadding={[2, 4]}
+          labelBgBorderRadius={4}
+        />
+      )}
     </>
   );
 };
 
-export default CustomEdge;
+export default memo(CustomEdge);
