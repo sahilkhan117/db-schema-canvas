@@ -1,4 +1,5 @@
 
+// @ts-ignore
 import { Parser, exporter } from '@dbml/core';
 
 interface DbmlField {

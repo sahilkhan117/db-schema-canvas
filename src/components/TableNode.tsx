@@ -1,5 +1,5 @@
 
-import { memo } from 'react';
+import { memo, FC } from 'react';
 import { Handle, Position } from '@xyflow/react';
 
 export interface TableNodeData {
@@ -14,7 +14,11 @@ export interface TableNodeData {
   }>;
 }
 
-const TableNode = ({ data }: { data: TableNodeData }) => {
+interface TableNodeProps {
+  data: TableNodeData;
+}
+
+const TableNode: FC<TableNodeProps> = ({ data }) => {
   return (
     <div className="react-flow__node-table">
       <Handle type="target" position={Position.Top} />

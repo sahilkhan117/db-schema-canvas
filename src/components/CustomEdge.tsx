@@ -2,6 +2,10 @@
 import { useCallback } from 'react';
 import { BaseEdge, EdgeLabelRenderer, EdgeProps, getBezierPath, useReactFlow } from '@xyflow/react';
 
+interface CustomEdgeData {
+  label?: string;
+}
+
 const CustomEdge = ({
   id,
   sourceX,
@@ -13,7 +17,7 @@ const CustomEdge = ({
   style = {},
   markerEnd,
   data
-}: EdgeProps) => {
+}: EdgeProps & { data?: CustomEdgeData }) => {
   const { setEdges } = useReactFlow();
   const [edgePath, labelX, labelY] = getBezierPath({
     sourceX,
