@@ -5,7 +5,7 @@
 
 @layer base {
   :root {
-    --background: 222 47% 11%;
+    --background: 0 0% 0%;
     --foreground: 210 40% 98%;
 
     --card: 222 47% 11%;
@@ -32,7 +32,7 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 222 47% 11%;
+    --sidebar-background: 0 0% 0%;
     --sidebar-foreground: 210 40% 98%;
     --sidebar-primary: 217.2 91.2% 59.8%;
     --sidebar-primary-foreground: 0 0% 100%;
@@ -88,6 +88,13 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+
+  html, body, #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
   }
 }
 
@@ -179,4 +186,38 @@
 
 .react-flow__attribution {
   display: none;
+}
+
+/* Editor panel styles */
+.editor-panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #1e1e1e;
+}
+
+.canvas-container {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+/* Top bar styles */
+.top-bar {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: #111111;
+  border-bottom: 1px solid #333333;
+}
+
+.top-bar-title {
+  color: white;
+  font-weight: 600;
+  flex: 1;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
 }
